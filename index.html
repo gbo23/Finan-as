@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f0efff" />
+    <title>Gabriel — meu espaço financeiro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <section class="auth-screen" id="auth-screen" aria-labelledby="auth-title">
+      <div class="auth-card">
+        <div class="auth-brand"><span class="brand-mark" aria-hidden="true">G</span> Gabriel</div>
+        <p class="auth-eyebrow">SEU ESPAÇO FINANCEIRO</p>
+        <h1 id="auth-title">Suas finanças, com você.</h1>
+        <p class="auth-description">Entre ou crie uma conta local para separar seus dados neste navegador.</p>
+        <div class="auth-tabs" role="tablist" aria-label="Acesso à conta">
+          <button class="auth-tab active" id="login-tab" type="button" role="tab" aria-selected="true">Entrar</button>
+          <button class="auth-tab" id="signup-tab" type="button" role="tab" aria-selected="false">Criar conta</button>
+        </div>
+        <form id="auth-form">
+          <div class="field" id="auth-name-field" hidden>
+            <label class="field-label" for="auth-name">Seu nome</label>
+            <input class="note-field" id="auth-name" name="name" autocomplete="name" maxlength="80" placeholder="Como devemos chamar você?" />
+          </div>
+          <div class="field">
+            <label class="field-label" for="auth-email">E-mail</label>
+            <input class="note-field" id="auth-email" name="email" type="email" autocomplete="email" maxlength="254" required placeholder="voce@exemplo.com" />
+          </div>
+          <div class="field">
+            <label class="field-label" for="auth-password">Senha</label>
+            <input class="note-field" id="auth-password" name="password" type="password" autocomplete="current-password" minlength="8" maxlength="128" required placeholder="Mínimo de 8 caracteres" />
+          </div>
+          <button class="modal-submit" id="auth-submit" type="submit">Entrar</button>
+          <p class="auth-message" id="auth-message" role="status" aria-live="polite"></p>
+        </form>
+        <p class="auth-privacy">Carteira criptografada neste navegador. Sem nuvem, sincronização ou recuperação de senha; quem usa este mesmo perfil do computador pode acessar o app.</p>
+      </div>
+    </section>
+    <div class="app" id="main-app" hidden>
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">G</span>
+          <span id="user-brand-name">Gabriel</span>
+        </div>
+        <div class="topbar-right">
+          <span class="secure"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 3 19 6v5c0 4.5-2.9 8-7 10-4.1-2-7-5.5-7-10V6l7-3Z" stroke="currentColor" stroke-width="1.7"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Controle financeiro manual</span>
+          <button class="signout-button" id="signout-button" type="button">Sair</button>
+          <div class="avatar" id="user-avatar" aria-label="Perfil da conta">U</div>
+        </div>
+      </header>
+
+      <main class="layout">
+        <div class="greeting">
+          <div><p class="eyebrow" id="current-date"></p><h1>Bom te ver, <span id="greeting-name">Gabriel</span> <span aria-hidden="true">✦</span></h1></div>
+          <div class="date">Sua vida financeira, em um só lugar</div>
+        </div>
+
+        <nav class="app-tabs" aria-label="Seções da carteira">
+          <button class="app-tab active" type="button" data-tab="overview">Visão geral</button>
+          <button class="app-tab" type="button" data-tab="portfolio">Investimentos</button>
+        </nav>
+        <div class="tab-view" id="overview-view">
+        <section class="hero-grid" aria-label="Resumo financeiro">
+          <article class="balance-card">
+            <div class="balance-top"><span class="card-label">Patrimônio total</span><button class="icon-button" id="visibility-toggle" aria-label="Ocultar saldo" title="Ocultar saldo"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M2.5 12s3.4-6 9.5-6 9.5 6 9.5 6-3.4 6-9.5 6-9.5-6-9.5-6Z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="2.5" stroke="currentColor" stroke-width="1.6"/></svg></button></div>
+            <div class="balance-amount" id="total-balance">R$ 0,00</div>
+            <div class="balance-sub"><span>◇</span> <span>Saldo + investimentos em reais</span><b id="total-detail">calculando patrimônio...</b></div>
+            <div class="balance-bottom">
+              <button class="primary-btn" data-action="add"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Adicionar valor</button>
+              <button class="secondary-btn" data-action="remove"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Retirar</button>
+            </div>
+          </article>
+
+          <article class="side-card">
+            <div class="side-head"><h2>Suas moedas</h2><button class="text-button" id="exchange-button">Câmbio ›</button></div>
+            <div class="currency-row">
+              <span class="currency-icon brl-icon">R$</span><span class="currency-meta"><span class="currency-name">Real brasileiro</span><span class="currency-code">BRL · moeda base</span></span><span class="currency-value" data-wallet-value="BRL">R$ 0,00<span class="currency-converted"></span></span>
+            </div>
+            <div class="currency-row">
+              <span class="currency-icon usd-icon">$</span><span class="currency-meta"><span class="currency-name">Dólar americano</span><span class="currency-code" id="usd-rate-label">USD · cotação indisponível</span></span><span class="currency-value" data-wallet-value="USD">$ 0,00<span class="currency-converted"></span></span>
+            </div>
+            <div class="currency-row">
+              <span class="currency-icon eur-icon">€</span><span class="currency-meta"><span class="currency-name">Euro</span><span class="currency-code" id="eur-rate-label">EUR · cotação indisponível</span></span><span class="currency-value" data-wallet-value="EUR">€ 0,00<span class="currency-converted"></span></span>
+            </div>
+            <p class="rates-note" id="exchange-source">Carregando câmbio atualizado...</p>
+          </article>
+        </section>
+
+        <section class="monthly-income-overview" aria-label="Proventos mensais estimados">
+          <div class="monthly-income-icon" aria-hidden="true">↗</div>
+          <div class="monthly-income-copy">
+            <span class="monthly-income-label">Média histórica de proventos por mês</span>
+            <strong id="overview-monthly-income">—</strong>
+            <span class="monthly-income-detail" id="overview-monthly-income-detail">Atualize as cotações para calcular</span>
+          </div>
+          <p class="monthly-income-note">Média dos proventos em dinheiro dos últimos 12 meses ÷ 12. Não é previsão nem garantia de pagamento mensal.</p>
+        </section>
+
+        <section class="content-grid" aria-label="Atividade e evolução">
+          <article class="panel activity">
+            <div class="section-head"><h2>Movimentações</h2><select class="filter" id="transaction-filter" aria-label="Filtrar movimentações"><option value="all">Tudo</option><option value="income">Entradas</option><option value="expense">Saídas</option></select></div>
+            <div class="transactions" id="transactions"></div>
+          </article>
+          <article class="panel insight">
+            <div class="insight-top">
+              <h2>Evolução da carteira</h2>
+              <span class="period" id="portfolio-chart-status">Histórico diário</span>
+            </div>
+            <div class="chart-range" role="group" aria-label="Período da evolução da carteira">
+              <button class="chart-range-button active" type="button" data-portfolio-period="7d" aria-pressed="true">7 dias</button>
+              <button class="chart-range-button" type="button" data-portfolio-period="30d" aria-pressed="false">1 mês</button>
+              <button class="chart-range-button" type="button" data-portfolio-period="90d" aria-pressed="false">3 meses</button>
+              <button class="chart-range-button" type="button" data-portfolio-period="1y" aria-pressed="false">1 ano</button>
+            </div>
+            <div class="chart" id="portfolio-chart" aria-label="Evolução diária do patrimônio convertido em reais">
+              <svg viewBox="0 0 360 110" preserveAspectRatio="none" role="img" aria-label="Evolução do saldo">
+                <defs><linearGradient id="areaFill" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#8069f5" stop-opacity=".19"/><stop offset="100%" stop-color="#8069f5" stop-opacity="0"/></linearGradient></defs>
+                <path class="chart-grid" d="M0 25H360M0 57H360M0 89H360"/>
+                <path class="chart-area" id="portfolio-chart-area"></path>
+                <path class="chart-line" id="portfolio-chart-line"></path>
+                <circle class="chart-dot" id="portfolio-chart-dot" cx="0" cy="0" r="4.5"/>
+              </svg>
+            </div>
+            <div class="chart-empty" id="portfolio-chart-empty" role="status" aria-live="polite" hidden></div>
+            <div class="chart-labels"><span id="portfolio-chart-start">—</span><span id="portfolio-chart-end">—</span></div>
+            <div class="insight-foot"><span class="insight-caption">Patrimônio atual</span><span class="insight-total" id="insight-total">R$ 0,00</span></div>
+            <p class="rates-note" id="portfolio-chart-note">O histórico diário aparecerá quando os valores da carteira estiverem disponíveis.</p>
+          </article>
+        </section>
+        <section class="market-overview panel" aria-labelledby="market-overview-title">
+          <div class="market-overview-head">
+            <div>
+              <h2 id="market-overview-title">Mercado da sua carteira</h2>
+              <p>Clique em uma moeda ou ativo para abrir o histórico do mercado.</p>
+            </div>
+            <button class="light-action" id="refresh-market-overview" type="button">Atualizar cotações</button>
+          </div>
+          <div class="market-currency-list" id="market-currency-list" aria-label="Cotações de moedas"></div>
+          <div class="market-watch-list" id="market-watch-list" aria-live="polite"></div>
+          <p class="market-overview-note" id="market-overview-note">Cotações sujeitas à disponibilidade, ao plano do provedor e ao horário de negociação.</p>
+        </section>
+        </div>
+
+        <section class="tab-view" id="portfolio-view" hidden aria-label="Carteira de investimentos">
+          <div class="portfolio-header">
+            <div>
+              <h2 class="portfolio-title">Sua carteira de investimentos</h2>
+              <p class="portfolio-description">Ações, FIIs e criptoativos em um só lugar.</p>
+            </div>
+            <div class="portfolio-actions">
+              <button class="light-action" id="refresh-portfolio" type="button"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20 7v5h-5M4 17v-5h5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 9M4 15l2.7 2a7 7 0 0 0 11.7-2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>Atualizar</button>
+              <button class="purple-action" id="add-asset" type="button"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Adicionar ativo</button>
+            </div>
+          </div>
+          <div class="portfolio-stats">
+            <article class="portfolio-stat"><div class="portfolio-stat-label">Valor de mercado</div><div class="portfolio-stat-value" id="portfolio-market-value">R$ —</div><div class="portfolio-stat-detail" id="portfolio-asset-count">0 ativos</div></article>
+            <article class="portfolio-stat"><div class="portfolio-stat-label">Total investido</div><div class="portfolio-stat-value" id="portfolio-invested">R$ —</div><div class="portfolio-stat-detail" id="portfolio-invested-detail">Custo das posições cadastradas</div></article>
+            <article class="portfolio-stat"><div class="portfolio-stat-label">Resultado não realizado</div><div class="portfolio-stat-value" id="portfolio-result">R$ —</div><div class="portfolio-stat-detail" id="portfolio-result-percent">Aguardando cotações</div></article>
+            <article class="portfolio-stat"><div class="portfolio-stat-label">Proventos médios / mês</div><div class="portfolio-stat-value" id="portfolio-income">R$ —</div><div class="portfolio-stat-detail" id="portfolio-income-detail">Média histórica dos últimos 12 meses</div></article>
+          </div>
+          <article class="portfolio-panel">
+            <div class="portfolio-panel-head">
+              <div><h3>Meus ativos</h3><div class="portfolio-updated" id="portfolio-updated">Aguardando configuração dos provedores</div></div>
+              <select class="filter" id="holding-filter" aria-label="Filtrar ativos">
+                <option value="all">Todas as categorias</option><option value="br">B3 · ações e FIIs</option><option value="us">Internacionais</option><option value="crypto">Criptoativos</option>
+              </select>
+            </div>
+            <div class="holdings-list" id="holdings-list"></div>
+            <div class="market-status" id="market-status" role="status">Verificando conexão com Finnhub e brapi.dev...</div>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal-backdrop" id="modal-backdrop" role="presentation">
+      <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-head"><h2 id="modal-title">Adicionar valor</h2><button class="close-btn" id="close-modal" aria-label="Fechar">✕</button></div>
+        <p class="modal-description" id="modal-description">Atualize sua carteira demonstrativa.</p>
+        <form id="transaction-form">
+          <div class="field">
+            <label class="field-label" for="amount">Quanto?</label>
+            <div class="amount-wrap"><span class="currency-symbol" id="modal-symbol">R$</span><input class="amount-input" id="amount" name="amount" inputmode="decimal" placeholder="0,00" autocomplete="off" required aria-label="Valor da movimentação" /></div>
+          </div>
+          <div class="field">
+            <label class="field-label" for="currency">Moeda</label>
+            <div class="select-wrap"><select id="currency" name="currency"><option value="BRL">Real brasileiro · BRL</option><option value="USD">Dólar americano · USD</option><option value="EUR">Euro · EUR</option></select></div>
+          </div>
+          <div class="field" id="destination-field" hidden>
+            <label class="field-label" for="destination-currency">Converter para</label>
+            <div class="select-wrap"><select id="destination-currency" name="destinationCurrency"><option value="USD">Dólar americano · USD</option><option value="BRL">Real brasileiro · BRL</option><option value="EUR">Euro · EUR</option></select></div>
+          </div>
+          <div class="exchange-preview" id="exchange-preview" aria-live="polite" hidden></div>
+          <div class="field">
+            <label class="field-label" for="description">Descrição</label>
+            <input class="note-field" id="description" name="description" maxlength="32" placeholder="Ex.: salário, viagem..." />
+          </div>
+          <button class="modal-submit" id="submit-transaction" type="submit">Confirmar adição</button>
+        </form>
+      </section>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <div class="modal-backdrop" id="history-backdrop" role="presentation">
+      <section class="modal history-dialog" role="dialog" aria-modal="true" aria-labelledby="history-title">
+        <div class="modal-head">
+          <div><h2 id="history-title">Histórico de mercado</h2><p class="modal-description" id="history-description">Consultando histórico...</p></div>
+          <button class="close-btn" id="close-history-modal" aria-label="Fechar gráfico">✕</button>
+        </div>
+        <div class="history-summary">
+          <strong id="history-current-value">—</strong>
+          <span id="history-change">—</span>
+        </div>
+        <div class="history-range" role="group" aria-label="Período do gráfico">
+          <button class="history-range-button active" type="button" data-history-period="1mo">1 mês</button>
+          <button class="history-range-button" type="button" data-history-period="3mo">3 meses</button>
+          <button class="history-range-button" type="button" data-history-period="1y">1 ano</button>
+        </div>
+        <div class="history-chart-wrap" id="history-chart-wrap">
+          <svg class="history-chart" id="history-chart" viewBox="0 0 720 240" role="img" aria-label="Gráfico da variação de mercado">
+            <defs><linearGradient id="history-fill" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#8069f5" stop-opacity=".2"/><stop offset="100%" stop-color="#8069f5" stop-opacity="0"/></linearGradient></defs>
+            <path class="history-gridline" d="M42 24H704M42 120H704M42 216H704"/>
+            <path id="history-area" class="history-area"></path>
+            <path id="history-line" class="history-line"></path>
+            <circle id="history-dot" class="history-dot" r="5"></circle>
+            <text id="history-y-top" class="history-axis-label" x="0" y="28">—</text>
+            <text id="history-y-mid" class="history-axis-label" x="0" y="124">—</text>
+            <text id="history-y-bottom" class="history-axis-label" x="0" y="220">—</text>
+          </svg>
+        </div>
+        <div class="history-dates"><span id="history-start-date">—</span><span id="history-end-date">—</span></div>
+        <p class="history-source" id="history-source">Os dados históricos dependem da disponibilidade do provedor.</p>
+        <p class="history-error" id="history-error" role="status" hidden></p>
+      </section>
+    </div>
+
+    <div class="modal-backdrop" id="asset-backdrop" role="presentation">
+      <section class="modal asset-dialog" role="dialog" aria-modal="true" aria-labelledby="asset-modal-title">
+        <div class="modal-head"><h2 id="asset-modal-title">Adicionar à carteira</h2><button class="close-btn" id="close-asset-modal" aria-label="Fechar">✕</button></div>
+        <p class="modal-description" id="asset-modal-description">Busque pelo nome ou ticker do ativo.</p>
+        <div id="asset-search-section">
+          <div class="market-picker" role="group" aria-label="Categoria do ativo">
+            <button class="market-option active" type="button" data-market="br">Brasil · B3</button>
+            <button class="market-option" type="button" data-market="us">Internacional</button>
+            <button class="market-option" type="button" data-market="crypto">Cripto</button>
+          </div>
+          <label class="field-label" for="asset-search">Nome ou ticker</label>
+          <input class="asset-search" id="asset-search" type="search" autocomplete="off" placeholder="Ex.: PETR4, MXRF11, AAPL..." />
+          <div class="asset-results" id="asset-results" aria-live="polite"><div class="asset-empty">Digite para pesquisar na lista de ativos do provedor.</div></div>
+        </div>
+        <div id="selected-asset" class="selected-asset" hidden></div>
+        <div id="selected-quote" class="selected-quote" hidden aria-live="polite"></div>
+        <form id="asset-trade-form" hidden>
+          <div class="asset-trade-fields">
+            <div class="field"><label class="field-label" for="asset-quantity">Quantidade de cotas/ações</label><input id="asset-quantity" type="number" min="0.00000001" step="any" inputmode="decimal" placeholder="Ex.: 10" required /></div>
+            <div class="field"><label class="field-label" id="asset-price-label" for="asset-price">Preço pago por unidade (<span id="asset-price-currency">R$</span>)</label><input id="asset-price" type="number" min="0" step="any" inputmode="decimal" placeholder="Buscando cotação..." required /></div>
+          </div>
+          <div class="trade-preview" id="trade-preview" aria-live="polite">Informe quantidade e preço para ver o total da operação.<strong>R$ 0,00</strong></div>
+          <p class="asset-trade-note" id="asset-trade-note">A cotação atual será sugerida; ajuste para o preço que você realmente pagou.</p>
+          <button class="modal-submit" id="asset-trade-submit" type="submit">Adicionar à carteira</button>
+        </form>
+      </section>
+    </div>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>
